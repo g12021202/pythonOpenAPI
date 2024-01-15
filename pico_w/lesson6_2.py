@@ -1,3 +1,4 @@
+# Delay and timing
 import machine
 import time
 while True:
