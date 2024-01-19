@@ -24,6 +24,12 @@ def counter(c:int):
     return {"counter": counter}
 
 
+@app.get("/temperature/{c}")
+def temperature(c:int):
+    temperature = redis_conn.incr('test:temperature',c)
+    return {"temperature": temperature}
+
+
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
