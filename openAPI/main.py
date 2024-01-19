@@ -26,8 +26,8 @@ def counter(c:int):
 
 @app.get("/temperature/{c}")
 def temperature(c:int):
-    temperature = redis_conn.incr('test:temperature',c)
-    return {"temperature": temperature}
+    counter = redis_conn.incr('test:increment',c)
+    return {"counter": counter}
 
 
 @app.get("/items/{item_id}")

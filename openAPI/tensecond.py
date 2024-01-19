@@ -14,4 +14,4 @@ def tenSecond(t):
     print(celsius)
 
 tim = Timer()
-tim.init(period=10000, callback=oneSecond)
+tim.init(period=10000, callback=tenSecond)
