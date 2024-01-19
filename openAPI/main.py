@@ -4,7 +4,10 @@ import redis
 import os
 from dotenv import load_dotenv
 load_dotenv()
-redis_conn = redis.Redis.from_url(os.environ.get('REDIS_HOST_PASSWORD'), ssl_cert_reqs="none")
+# local
+# redis_conn = redis.Redis.from_url(os.environ.get('REDIS_HOST_PASSWORD'), ssl_cert_reqs="none")
+# render.com
+redis_conn = redis.Redis.from_url(os.environ.get('REDIS_HOST_PASSWORD'))
 
 app = FastAPI()
 
@@ -12,6 +15,12 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     counter = redis_conn.incr('test:increment')
+    return {"counter": counter}
+
+
+@app.get("/counter/{c}")
+def counter(c:int):
+    counter = redis_conn.incr('test:increment',c)
     return {"counter": counter}
 
 
