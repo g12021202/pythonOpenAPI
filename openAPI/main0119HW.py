@@ -2,6 +2,7 @@ from typing import Union
 from fastapi import FastAPI
 import redis
 import os
+# from tenSecond import tenSecondTemperature
 from dotenv import load_dotenv
 load_dotenv()
 # local
@@ -18,15 +19,18 @@ def read_root():
     return {"counter": counter}
 
 
-@app.get("/counter/{c}")
-def counter(c:int):
+# @app.get("/counter/{c}")
+# def counter(c:int):
+#     counter = redis_conn.incr('test:increment',tenSecondTemperature)
+#     return {"counter": counter}
+
+
+@app.get("/temperature/{c}")
+def temperature(c:int):
     counter = redis_conn.incr('test:increment',c)
     return {"counter": counter}
 
 
-@app.get("/pico_w/{date}")
-async def read_item(date:str, address:str, celsius:float=0.0):
-    print(f"日期:{date}")
-    print(f"地址:{address}")
-    print(f"溫度:{celsius}")
-    return {"日期":date,"地址":address,"攝氏溫度":celsius}
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
