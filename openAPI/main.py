@@ -25,8 +25,14 @@ def counter(c:int):
 
 
 @app.get("/pico_w/{date}")
-async def read_item(date:str, address:str, celsius:float=0.0):
-    print(f"日期:{date}")
-    print(f"地址:{address}")
-    print(f"溫度:{celsius}")
-    return {"日期":date,"地址":address,"攝氏溫度":celsius}
+async def read_item(date:str, address:str, celsius:float=0.0, light:float):
+    #print(f"日期:{date}")
+    redis_conn.rpush('pico_w:date',date)
+    #print(f"位置:{address}")
+    redis_conn.hset('pico_w:address',mapping={date:address})
+    #print(f"攝氏:{celsius}")
+    redis_conn.hset('pico_w:temperature',mapping={date:celsius})
+    #print(f"光線:{light}")
+    redis_conn.hset('pico_w:light',mapping={date:light})
+    # return {"日期":date,"地址":address,"攝氏溫度":celsius,"光線":light}
+    return {"狀態":"儲存成功"}
