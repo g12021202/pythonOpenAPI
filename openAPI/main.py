@@ -46,17 +46,17 @@ class Pico_w(BaseModel):
     temperature:float
     light:float
 
-
 @app.get("/pico_w/")
 async def read_item(count:int=1):
     date_list = redis_conn.lrange('pico_w:date',-count,-1)
     dates = [date.decode() for date in date_list]
     all_Data:[Pico_w] = []
     for date in dates:
-        address_get = redis_conn.hget('pico_w:address', date).decode()
+        address_get = redis_conn.hget('pico_w:address',date).decode()
         temperature_get = redis_conn.hget('pico_w:temperature',date).decode()
         light_get = redis_conn.hget('pico_w:light',date).decode()
-        item = Pico_w(date=date, address=address_get,temperature=float(temperature_get),light=float(light_get))
+        item = Pico_w(date=date,address=address_get,temperature=float(temperature_get),light=float(light_get))
         all_Data.append(item)
 
+    
     return all_Data
