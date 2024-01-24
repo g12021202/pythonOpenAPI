@@ -25,7 +25,7 @@ def counter(c:int):
 
 
 @app.get("/pico_w/{date}")
-async def read_item(date:str, address:str, celsius:float=0.0, light:float):
+async def read_item(date:str, address:str, celsius:float, light:float):
     #print(f"日期:{date}")
     redis_conn.rpush('pico_w:date',date)
     #print(f"位置:{address}")
