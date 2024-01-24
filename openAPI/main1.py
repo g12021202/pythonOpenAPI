@@ -39,6 +39,15 @@ async def read_item(skip: int = 0, limit: int = 10):
 
 
 @app.get("/pico_w/{date}")
+async def read_item(date:str, address:str, celsius:float, light:float):
+    print(f"日期:{date}")
+    print(f"地址:{address}")
+    print(f"溫度:{celsius}")
+    print(f"光線:{light}")
+    return {"日期":date,"地址":address,"攝氏溫度":celsius,"光線":light}
+
+
+@app.get("/pico_w/{date}")
 async def read_item(date:str, address:str, celsius:float=0.0):
     print(f"日期:{date}")
     print(f"地址:{address}")
